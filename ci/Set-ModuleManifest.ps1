@@ -15,18 +15,16 @@ param (
     [String]$CommitHash
 )
 
-$ManifestPath = (Join-Path (Split-Path $PSScriptRoot -Parent) ".\src\VstsRestApiClient.psd1")
-$TokensPath   = (Join-Path (Split-Path $PSScriptRoot -Parent) ".\src\v$($Version)\tokens.json")
+$ManifestPath  = (Join-Path (Split-Path $PSScriptRoot -Parent) ".\src\VstsRestApiClient.psd1")
+$LatestVersion = ((Find-Module VstsRestApiClient -AllVersions).Version | Select-Object -First 1).Split('.')
+$Manifest      = Get-Content $ManifestPath
 
-$Tokens   = Get-Content $TokensPath -Raw | ConvertFrom-Json
-$Manifest = Get-Content $ManifestPath
-
+$Tokens.Major      = $LatestVersion[0]
+$Tokens.Minor      = $LatestVersion[1]
+$Tokens.Patch      = $LatestVersion[2] + 1
 $Tokens.CommitHash = $CommitHash
 
 Write-Verbose "Replacing tokens in manifest..."
-$Tokens.Versions | ForEach-Object { 
-    $Manifest | ForEach-Object { $_ -Replace "\[\[$($_.Name))\]\]","$($_.Value++)" } | Set-Content $ManifestPath
+$Tokens | ForEach-Object { 
+    $Manifest | ForEach-Object { $_ -Replace "\[\[$($_.Name))\]\]","$($_.Value)" } | Set-Content $ManifestPath
 }
-
-Write-Verbose "Updating tokens.json..."
-$Tokens | ConvertTo-Json | Set-Content $TokensPath
