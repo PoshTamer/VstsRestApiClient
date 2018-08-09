@@ -2,7 +2,7 @@
 @{
     RootModule        = 'v[[MAJOR]]\VstsRestApiClient.psm1';
     Description       = 'This modules serves as a client to the VSTS Rest Api.'
-    ModuleVersion     = '[[MAJOR]].[[MINOR]].[[BUILD]]';
+    ModuleVersion     = '[[MAJOR]].[[MINOR]].[[PATCH]]';
     GUID              = 'f2286125-3d21-4acc-9673-d5fb04bdc0e2';
     Author            = 'Guillermo Alicea';
     Copyright         = '(c) 2018 Guillermo Alicea. All rights reserved.'
