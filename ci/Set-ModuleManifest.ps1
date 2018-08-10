@@ -1,23 +1,19 @@
 
+[CmdletBinding()]
 param (
     [Parameter(
         Mandatory=$true,
         Position=0
-    )]
-    [ValidateSet("1")]
-    [String]$Version,
-
-    [Parameter(
-        Mandatory=$true,
-        Position=1
     )]
     [ValidateScript({$_.Length -eq 40})]
     [String]$CommitHash
 )
 
 $ManifestPath  = (Join-Path (Split-Path $PSScriptRoot -Parent) ".\src\VstsRestApiClient.psd1")
-$LatestVersion = ((Find-Module VstsRestApiClient -AllVersions).Version | Select-Object -First 1).Split('.')
 $Manifest      = Get-Content $ManifestPath
+try { 
+    $LatestVersion = ((Find-Module VstsRestApiClient -AllVersions).Version | Select-Object -First 1).Split('.') 
+} catch { $LatestVersion = "1.0.0" }
 
 $Tokens.Major      = $LatestVersion[0]
 $Tokens.Minor      = $LatestVersion[1]
