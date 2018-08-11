@@ -1,5 +1,5 @@
 
-Import-Module Pester
+Import-Module Pester -Force
 
 $rootFolderPath = (Join-Path (Split-Path $PSScriptRoot -Parent) "src")
 $Params = @{

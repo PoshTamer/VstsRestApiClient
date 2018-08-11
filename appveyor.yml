@@ -7,4 +7,4 @@ test_script:
 
 after_test:
   - ps: Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-  - ps: ./codecov.sh -f .\\Tests\\CodeCoverage.xml -t d5bc7441-5aa8-49d1-8e9a-d68709447921
+  - ps: ./codecov.sh -f .\\Tests\\TestResults.xml
