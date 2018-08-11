@@ -1,7 +1,6 @@
 
-
 build: false
 
 test_script:
   - ps: Install Pester -Force -Scope CurrentUser
-  - ps: &.\Tests\run.ps1 
+  - ps: "&.\\Tests\\run.ps1" 
