@@ -2,7 +2,7 @@
 function Get-ReplacedString
 {
     [CmdletBinding()]
-    [OutputType([System.String])]
+    [OutputType([String])]
     param(
         [Parameter(
             Mandatory=$true,
@@ -26,7 +26,7 @@ function Get-ReplacedString
 function Test-ValidJson
 {
     [CmdletBinding()]
-    [OutputType([System.Boolean])]
+    [OutputType([Boolean])]
     param(
         [Parameter(
             Mandatory=$true,

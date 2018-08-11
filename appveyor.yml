@@ -1,0 +1,7 @@
+
+
+build: false
+
+test_script:
+  - ps: Install Pester -Force -Scope CurrentUser
+  - ps: &.\Tests\run.ps1 

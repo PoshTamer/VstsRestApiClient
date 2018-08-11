@@ -2,7 +2,7 @@
 function Test-ObjectDefinition
 {
     [CmdletBinding()]
-    [OutputType([System.Boolean])]
+    [OutputType([Boolean])]
     param(
         [Parameter(
             Mandatory=$true,
