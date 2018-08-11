@@ -4,3 +4,7 @@ build: false
 test_script:
   - ps: Install-Module Pester -Force -Scope CurrentUser
   - ps: "&.\\Tests\\run.ps1" 
+
+after_test:
+  - ps: Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+  - ps: codecov.sh -f .\\Tests\\CodeCoverage.xml
