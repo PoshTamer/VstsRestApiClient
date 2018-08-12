@@ -21,8 +21,8 @@ matrix:
             - powershell
 
 script:
-  - pwsh -C "Install-Module Pester -Force -Scope CurrentUser; ${env:TRAVIS_BUILD_DIR}/tests/run.ps1"
+  - pwsh -C Install-Module Pester -Force -Scope CurrentUser; ${env:TRAVIS_BUILD_DIR}/tests/run.ps1
 
 after_script:
-  - pwsh -C "Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh"
-  - pwsh -C "./codecov.sh -f ${env:TRAVIS_BUILD_DIR}/tests/CodeCoverage.xml"
+  - pwsh -C Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+  - pwsh -C ./codecov.sh -f ${env:TRAVIS_BUILD_DIR}/tests/CodeCoverage.xml

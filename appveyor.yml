@@ -5,6 +5,10 @@ image:
 
 build: off
 
+install:
+  - ps: Install-Module Pester -Force -Scope CurrentUser
+  - pwsh: Install-Module Pester -Force -Scope CurrentUser
+
 test_script:
   - ps: .\tests\run.ps1
-  - pwsh: .\tests\run.ps1
+  - pwsh: .\tests\runy.ps1
