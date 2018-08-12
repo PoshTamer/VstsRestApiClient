@@ -10,3 +10,7 @@ install:
 
 test_script:
   - ps: .\tests\run.ps1
+
+after_test:
+  - ps: Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile ./codecov.sh
+  - ps: ./codecov.sh -f ./tests/CodeCoverage.xml

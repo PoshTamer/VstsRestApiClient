@@ -24,8 +24,3 @@ script:
   - chmod +x ${TRAVIS_BUILD_DIR}/tests/run.ps1
   - pwsh -C Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck 
   - pwsh -F ${TRAVIS_BUILD_DIR}/tests/run.ps1
-
-after_script:
-  - pwsh -C Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile ${TRAVIS_BUILD_DIR/}codecov.sh
-  - chmod +x ${TRAVIS_BUILD_DIR}/codecov.sh
-  - ${TRAVIS_BUILD_DIR}/codecov.sh -f ${TRAVIS_BUILD_DIR}/tests/CodeCoverage.xml -t d5bc7441-5aa8-49d1-8e9a-d68709447921
