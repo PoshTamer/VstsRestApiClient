@@ -9,6 +9,7 @@ matrix:
         - brew update
         - brew tap caskroom/cask
         - brew cask install powershell
+        - chmod +x {TRAVIS_BUILD_DIR}/tests/run.ps1
     - os: linux
       dist: trusty
       sudo: required
@@ -21,7 +22,7 @@ matrix:
             - powershell
 
 script:
-  - pwsh -C Install-Module Pester -Force -Scope CurrentUser; ${TRAVIS_BUILD_DIR}/tests/run.ps1
+  - pwsh -C Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck; ${TRAVIS_BUILD_DIR}/tests/run.ps1
 
 after_script:
   - pwsh -C Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh

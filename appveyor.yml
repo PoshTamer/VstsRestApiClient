@@ -6,8 +6,8 @@ image:
 build: off
 
 install:
-  - ps: Install-Module Pester -Force -Scope CurrentUser
-  - pwsh: Install-Module Pester -Force -Scope CurrentUser
+  - ps: Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
+  - pwsh: Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
 
 test_script:
   - ps: .\tests\run.ps1
