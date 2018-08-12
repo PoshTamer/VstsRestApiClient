@@ -1,8 +1,8 @@
 
 @{
-    RootModule        = 'v[[MAJOR]]\VstsRestApiClient.psm1';
+    RootModule        = 'VstsRestApiClient.psm1';
     Description       = 'This module serves as a client to the VSTS Rest Api.'
-    ModuleVersion     = '[[MAJOR]].[[MINOR]].[[PATCH]]';
+    ModuleVersion     = '1.0.0';
     GUID              = 'f2286125-3d21-4acc-9673-d5fb04bdc0e2';
     Author            = 'Guillermo Alicea';
     Copyright         = '(c) 2018 Guillermo Alicea. All rights reserved.'
@@ -16,7 +16,7 @@
             Tags         = @('Vsts', 'Tfs', 'Client', 'Api')
             LicenseUri   = 'https://github.com/PoshTamer/VstsRestApiClient/blob/master/LICENSE'
             ProjectUri   = 'https://github.com/PoshTamer/VstsRestApiClient/blob/master'
-            IconUri      = 'https://raw.github.com/PoshTamer/VstsRestApiClient/blob/master/imgs/icons/v[[MAJOR]]/icon.ico'
+            IconUri      = 'https://raw.github.com/PoshTamer/VstsRestApiClient/blob/master/imgs/icons/icon.ico'
             CommitHash   = '[[COMMIT_HASH]]'
         }
     }

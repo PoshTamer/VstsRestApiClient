@@ -22,5 +22,5 @@ $Tokens.CommitHash = $CommitHash
 
 Write-Verbose "Replacing tokens in manifest..."
 $Tokens | ForEach-Object { 
-    $Manifest | ForEach-Object { $_ -Replace "\[\[$($_.Name))\]\]","$($_.Value)" } | Set-Content $ManifestPath
+    $Manifest | ForEach-Object { $_ -Replace "\[\[$($_.Name))\]\]", "$($_.Value)" } | Set-Content $ManifestPath
 }

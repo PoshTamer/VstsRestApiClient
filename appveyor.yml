@@ -8,8 +8,4 @@ install:
   - ps: Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
 
 test_script:
-  - ps: .\tests\run.ps1
-
-after_test:
-  - ps: Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile ./codecov.sh
-  - ps: ./codecov.sh -f ./tests/CodeCoverage.xml
+  - ps: ".\ci\Build.ps1 -Ci:$($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotContains '[SkipCi]') -BuildId ${APPVEYOR_BUILD_ID}"

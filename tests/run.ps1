@@ -8,4 +8,4 @@ $Params = @{
     CodeCoverage = (Get-ChildItem $rootFolderPath -File -Recurse -Include "*.psm1").FullName
     CodeCoverageOutputFile = "$($PSScriptRoot)\CodeCoverage.xml"
 }
-Invoke-Pester @Params
+$TestResults = Invoke-Pester @Params -PassThru
