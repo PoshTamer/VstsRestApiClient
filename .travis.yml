@@ -1,4 +1,5 @@
 
+language: generic
 install:
   - ps: Install-Module Pester -Force -Scope CurrentUser
 
