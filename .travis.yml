@@ -21,10 +21,10 @@ matrix:
             - powershell
 
 script:
-  - chmod +x {TRAVIS_BUILD_DIR}/tests/run.ps1
+  - chmod +x ${TRAVIS_BUILD_DIR}/tests/run.ps1
   - pwsh -C Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck; ${TRAVIS_BUILD_DIR}/tests/run.ps1
 
 after_script:
-  - pwsh -C Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile {TRAVIS_BUILD_DIR/}codecov.sh
-  - chmod +x {TRAVIS_BUILD_DIR}/codecov.sh
+  - pwsh -C Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile ${TRAVIS_BUILD_DIR/}codecov.sh
+  - chmod +x ${TRAVIS_BUILD_DIR}/codecov.sh
   - pwsh -C ./codecov.sh -f ${TRAVIS_BUILD_DIR}/tests/CodeCoverage.xml
