@@ -16,10 +16,7 @@ param(
     [Int32]$BuildId
 )
 
-@( "Pester" ) | ForEach-Object {
-    Install-Module $_ -Force -Scope CurrentUser -SkipPublisherCheck
-    Import-Module $_ -Force
-}
+Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
 
 . "$PSScriptRoot\..\Tests\run.ps1"
 

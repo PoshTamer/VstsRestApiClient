@@ -2,7 +2,12 @@
 image:
 - Visual Studio 2017
 
+environment:
+  - APPVEYOR_BUILD_ID: ${APPVEYOR_BUILD_ID}
+  - APPVEYOR_REPO_COMMIT_MESSAGE: ${APPVEYOR_REPO_COMMIT_MESSAGE}
+  - APPVEYOR_BUILD_ID: ${APPVEYOR_BUILD_ID}
+
 build: off
 
 test_script:
-  - ps: ${$Env:APPVEYOR_BUILD_FOLDER}\\ci\\Build.ps1 -Ci:(${$Env:APPVEYOR_REPO_COMMIT_MESSAGE} -NotContains [SkipCi]) -BuildId ${$Env:APPVEYOR_BUILD_ID}
+  - ps: $($Env:APPVEYOR_BUILD_FOLDER)\\ci\\Build.ps1 -Ci:($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotContains [SkipCi]) -BuildId $Env:APPVEYOR_BUILD_ID
