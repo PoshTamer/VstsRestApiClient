@@ -1,10 +1,10 @@
 
-build: false
+image:
+- Visual Studio 2017
+- Ubuntu
+
+build: off
 
 test_script:
-  - ps: Install-Module Pester -Force -Scope CurrentUser
-  - ps: "&.\\tests\\run.ps1" 
-
-after_test:
-  - ps: Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-  - ps: ./codecov.sh -f .\\tests\\CodeCoverage.xml -t d5bc7441-5aa8-49d1-8e9a-d68709447921
+  - ps: .\tests\run.ps1
+  - pwsh: .\tests\run.ps1
