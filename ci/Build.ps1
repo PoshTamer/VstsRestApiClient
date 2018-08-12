@@ -25,7 +25,7 @@ if ($Ci) {
         $Manifests = (Get-ChildItem -Recurse -Include "*.psd1").FullName
         $Manifests | ForEach-Object {
             $Manifest   = Get-Content $_ -Raw
-            $OldVersion = ([Regex]"\d.\d.\d").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d\.\d\.\d';").Match($Manifest).Value)
+            $OldVersion = ([Regex]"\d.\d.\d").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d\.\d\.\d';").Match($Manifest).Value).Value
             
             $NewVersion = [Decimal[]] $OldVersion.Split('.')
             $NewVersion[0]++
@@ -52,9 +52,11 @@ if ($Ci) {
         $Color = "red"
     }
 
-    $ReadMe = $ReadMe.Replace(([Regex] "!\[Coverage\]\(.*\)").Match().Value, "https://img.shields.io/badge/Coverage-$($NewCoverage)-$($Color).svg")
+    $ReadMe = $ReadMe.Replace(([Regex] "!\[Coverage\]\(.*\)").Match($ReadMe).Value, "https://img.shields.io/badge/Coverage-$($NewCoverage)-$($Color).svg")
     $ReadMe | Set-Content "$PSScriptRoot\..\README.md" -Force
 
+    Invoke-Expression -Command "git config --global user.email build@appveyor.com"
+    Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH)"
     Invoke-Expression -Command "git add *.psd1"
     Invoke-Expression -Command "git add *.md"
     Invoke-Expression -Command "git commit -m '[SKIP CI]Updating manifests and readme'"
