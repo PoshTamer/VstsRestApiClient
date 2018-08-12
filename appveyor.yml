@@ -8,4 +8,4 @@ install:
   - ps: Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
 
 test_script:
-  - ps: ".\ci\Build.ps1 -Ci:$($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotContains '[SkipCi]') -BuildId ${APPVEYOR_BUILD_ID}"
+  - ps: "${APPVEYOR_BUILD_FOLDER}\ci\Build.ps1 -Ci:$($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotContains [SkipCi]) -BuildId ${APPVEYOR_BUILD_ID}"

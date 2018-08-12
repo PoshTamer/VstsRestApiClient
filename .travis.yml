@@ -22,3 +22,4 @@ matrix:
 
 script:
   - chmod +x ${TRAVIS_BUILD_DIR}/ci/build.ps1
+  - pwsh -F ${TRAVIS_BUILD_DIR}/ci/build.ps1
