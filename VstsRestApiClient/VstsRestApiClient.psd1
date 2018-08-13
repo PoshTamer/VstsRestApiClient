@@ -2,7 +2,7 @@
 @{
 RootModule= 'VstsRestApiClient.psm1';
 Description = 'This module serves as a client to the VSTS Rest Api.'
-ModuleVersion = '1.2.119';
+ModuleVersion = '1.3.121';
 GUID= 'f2286125-3d21-4acc-9673-d5fb04bdc0e2';
 Author= 'Guillermo Alicea';
 Copyright = '(c) 2018 Guillermo Alicea. All rights reserved.'
@@ -22,5 +22,6 @@ CommitHash = '[[COMMIT_HASH]]'
 }
 DefaultCommandPrefix = 'Vsts'
 }
+
 
 
