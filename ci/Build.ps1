@@ -30,7 +30,7 @@ if (($Ci) -And ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotContains "[SkipCi]")) {
             $NewVersion = [Decimal[]] $OldVersion.Split('.')
             $NewVersion[2] = $BuildId
             
-            $Manifest.Replace($OldVersion, $NewVersion.Join('.')) | Set-Content $_ -Force
+            $Manifest.Replace($OldVersion, $NewVersion -Join '.') | Set-Content $_ -Force
         }
     }
 
