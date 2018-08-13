@@ -92,6 +92,8 @@ if ($Ci) {
 
     if ($Publish) {
         Write-Verbose "Publishing VstsRestApiClient to the PSGallery..."
+        $Manifest = (Get-Content (Join-Path (Split-Path $PSScriptRoot -Parent) "VstsRestApiClient\VstsRestApiClient.psd1") -Raw)
+        $Manifest.Replace("[[COMMIT_HASH]]", $Env:APPVEYOR_REPO_COMMIT)
         Publish-Module -Path (Join-Path (Split-Path $PSScriptRoot -Parent) "VstsRestApiClient") -NuGetApiKey $Env:PSGALLERY_TOKEN
     }
 }
