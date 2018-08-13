@@ -2,6 +2,10 @@
 image:
 - Visual Studio 2017
 
+environment:
+  ACCESS_TOKEN:
+    secure: cUmYLjdrD7ugnmFpy84fEZE3nMvpgWuvfrqZmABsGZN3+BRcydagkFTlR3KD9nFE
+
 build: off
 
 test_script:

@@ -56,12 +56,14 @@ if ($Ci) {
     $ReadMe | Set-Content "$PSScriptRoot\..\README.md" -Force
 
     Write-Verbose "Updating ReadMe and Manifests..."
-    [void](Invoke-Expression -Command "git config core.autocrlf true -q")
-    [void](Invoke-Expression -Command "git config --global user.email build@appveyor.com -q")
+    Add-Content "$HOME\.git-credentials" "https://$($env:ACCESS_TOKEN):x-oauth-basic@github.com`n"
+    [void](Invoke-Expression -Command "git config --global credential.helper store")
+    [void](Invoke-Expression -Command "git config --global user.email galicea96@outlook.com -q")
+    [void](Invoke-Expression -Command "git config --global user.name PoshTamer -q")
     [void](Invoke-Expression -Command "git checkout $($Env:APPVEYOR_REPO_BRANCH) -q")
     [void](Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH) -q")
-    [void](Invoke-Expression -Command "git add *.psd1 -q")
-    [void](Invoke-Expression -Command "git add *.md -q")
+    [void](Invoke-Expression -Command "git add *.psd1")
+    [void](Invoke-Expression -Command "git add *.md")
     [void](Invoke-Expression -Command "git commit -m '[SkipCi]Updating manifests and readme' -q")
     [void](Invoke-Expression -Command "git push -q")
 }
