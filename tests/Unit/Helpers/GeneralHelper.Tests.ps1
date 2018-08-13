@@ -2,7 +2,7 @@
 Describe "GeneralHelper Unit Tests" {
    
     BeforeAll {
-        $ModulePath = "$($PSScriptRoot)\..\..\..\src\Helpers\GeneralHelper.psm1"
+        $ModulePath = "$($PSScriptRoot)\..\..\..\VstsRestApiClient\Helpers\GeneralHelper.psm1"
         Get-Module GeneralHelper | Remove-Module
         Import-Module $ModulePath
     }

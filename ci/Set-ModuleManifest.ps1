@@ -9,7 +9,7 @@ param (
     [String]$CommitHash
 )
 
-$ManifestPath  = (Join-Path (Split-Path $PSScriptRoot -Parent) ".\src\VstsRestApiClient.psd1")
+$ManifestPath  = (Join-Path (Split-Path $PSScriptRoot -Parent) ".\VstsRestApiClient\VstsRestApiClient.psd1")
 $Manifest      = Get-Content $ManifestPath
 try { 
     $LatestVersion = ((Find-Module VstsRestApiClient -AllVersions).Version | Select-Object -First 1).Split('.') 

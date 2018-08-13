@@ -1,7 +1,7 @@
 
 Import-Module Pester -Force
 
-$rootFolderPath = (Join-Path (Split-Path $PSScriptRoot -Parent) "src")
+$rootFolderPath = (Join-Path (Split-Path $PSScriptRoot -Parent) "VstsRestApiClient")
 $Params = @{
     OutputFile = "$($PSScriptRoot)\TestResults.xml"
     CodeCoverageOutputFileFormat = "JaCoCo"

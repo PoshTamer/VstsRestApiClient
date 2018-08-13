@@ -2,7 +2,7 @@
 Describe "DefinitionsHelper Unit Tests" {
    
     BeforeAll {
-        $ModulePath = "$($PSScriptRoot)\..\..\..\src\Helpers\DefinitionsHelper.psm1"
+        $ModulePath = "$($PSScriptRoot)\..\..\..\VstsRestApiClient\Helpers\DefinitionsHelper.psm1"
         Get-Module DefinitionsHelper | Remove-Module
         Import-Module $ModulePath
     }

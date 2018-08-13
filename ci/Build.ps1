@@ -41,7 +41,7 @@ Write-Verbose "Running PSScriptAnalyzer..."
 if ($Ci) {
     Write-Verbose "Running CI..."
     Write-Verbose "Setting patch for all manifests..."
-    (Get-ChildItem -Recurse -Include "*.psd1").FullName | ForEach-Object {
+    (Get-ChildItem (Split-Path $PSScriptRoot -Parent) -Recurse -Include "*.psd1").FullName | ForEach-Object {
         $Manifest      = Get-Content $_ -Raw
         $OldVersion    = ([Regex]"\d*\.\d*\.\d*").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d*\.\d*\.\d*';").Match($Manifest).Value).Value
         $NewVersion    = [Decimal[]] $OldVersion.Split('.')
@@ -92,6 +92,6 @@ if ($Ci) {
 
     if ($Publish) {
         Write-Verbose "Publishing VstsRestApiClient to the PSGallery..."
-        Publish-Module -Path (Join-Path (Split-Path $PSScriptRoot -Parent) "src") -NuGetApiKey $Env:PSGALLERY_TOKEN
+        Publish-Module -Path (Join-Path (Split-Path $PSScriptRoot -Parent) "VstsRestApiClient") -NuGetApiKey $Env:PSGALLERY_TOKEN
     }
 }
