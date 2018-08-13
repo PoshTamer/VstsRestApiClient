@@ -58,9 +58,10 @@ if ($Ci) {
     Write-Verbose "Updating ReadMe and Manifests..."
     [void](Invoke-Expression -Command "git config core.autocrlf true")
     [void](Invoke-Expression -Command "git config --global user.email build@appveyor.com")
-    [void](Invoke-Expression -Command "git pull $($Env:APPVEYOR_REPO_BRANCH)")
+    [void](Invoke-Expression -Command "git checkout -b $($Env:APPVEYOR_REPO_BRANCH)")
+    [void](Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH)")
     [void](Invoke-Expression -Command "git add *.psd1")
     [void](Invoke-Expression -Command "git add *.md")
     [void](Invoke-Expression -Command "git commit -m '[SKIP CI]Updating manifests and readme'")
-    [void](Invoke-Expression -Command "git push $($Env:APPVEYOR_REPO_BRANCH)")
+    [void](Invoke-Expression -Command "git push")
 }
