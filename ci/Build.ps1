@@ -56,12 +56,12 @@ if ($Ci) {
     $ReadMe | Set-Content "$PSScriptRoot\..\README.md" -Force
 
     Write-Verbose "Updating ReadMe and Manifests..."
-    [void](Invoke-Expression -Command "git config core.autocrlf true")
-    [void](Invoke-Expression -Command "git config --global user.email build@appveyor.com")
-    [void](Invoke-Expression -Command "git checkout $($Env:APPVEYOR_REPO_BRANCH)")
-    [void](Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH)")
-    [void](Invoke-Expression -Command "git add *.psd1")
-    [void](Invoke-Expression -Command "git add *.md")
-    [void](Invoke-Expression -Command "git commit -m '[SkipCi]Updating manifests and readme'")
-    [void](Invoke-Expression -Command "git push")
+    [void](Invoke-Expression -Command "git config core.autocrlf true -q")
+    [void](Invoke-Expression -Command "git config --global user.email build@appveyor.com -q")
+    [void](Invoke-Expression -Command "git checkout $($Env:APPVEYOR_REPO_BRANCH) -q")
+    [void](Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH) -q")
+    [void](Invoke-Expression -Command "git add *.psd1 -q")
+    [void](Invoke-Expression -Command "git add *.md -q")
+    [void](Invoke-Expression -Command "git commit -m '[SkipCi]Updating manifests and readme' -q")
+    [void](Invoke-Expression -Command "git push -q")
 }
