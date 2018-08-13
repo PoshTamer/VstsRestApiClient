@@ -7,7 +7,7 @@ Posh module serving as a client to the VSTS Rest Api. It is the purpose of this 
 |Travis|[![Travis](https://travis-ci.org/PoshTamer/VstsRestApiClient.svg?branch=add-tests-src)](https://travis-ci.org/PoshTamer/VstsRestApiClient)|
 |Pester Coverage|![Coverage](https://img.shields.io/badge/Coverage-95.83%25-brightgreen.svg)|
 
-## Installation (from PSGallery)
+## Installation (from the PSGallery)
 
     Install-Module VstsRestApiClient -Force -SkipPublisherCheck
     Import-Module VstsRestApiClient -Force

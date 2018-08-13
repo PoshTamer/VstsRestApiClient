@@ -23,12 +23,14 @@ param(
 
 $Publish = ($Env:APPVEYOR_REPO_BRANCH -eq "master")
 
+Write-Verbose "Running Tests..."
 . (Join-Path (Split-Path $PSScriptRoot -Parent) "Tests\run.ps1")
 
-if ($TestResults.FailedCount -le 0) {
+if ($TestResults.FailedCount -gt 0) {
     Throw "Not all tests passed. Failing build..."
 }
 
+Write-Verbose "Running PSScriptAnalyzer..."
 (Get-ChildItem (Join-Path (Split-Path $PSScriptRoot -Parent)) -Recurse -Include '*.psm1', '*.psd1').FullName | ForEach-Object {
     $AnalyzeResults = Invoke-ScriptAnalyzer -Path $_
     if ($AnalyzeResults -ne [String]::Empty) {
@@ -37,13 +39,15 @@ if ($TestResults.FailedCount -le 0) {
 }
 
 if ($Ci) {
-
+    Write-Verbose "Running CI..."
+    Write-Verbose "Setting patch for all manifests..."
     (Get-ChildItem -Recurse -Include "*.psd1").FullName | ForEach-Object {
         $Manifest      = Get-Content $_ -Raw
         $OldVersion    = ([Regex]"\d*\.\d*\.\d*").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d*\.\d*\.\d*';").Match($Manifest).Value).Value
         $NewVersion    = [Decimal[]] $OldVersion.Split('.')
 
         if ($Publish) {
+            Write-Verbose "Stepping Minor..."
             $NewVersion[1]++    
         }
 
@@ -83,9 +87,11 @@ if ($Ci) {
     [void](Invoke-Expression -Command "git commit -m '[skip ci]Updating manifests and readme' -q")
     [void](Invoke-Expression -Command "git push -q")
 
+    Write-Verbose "Uploading test results to AppVeyor..."
     (New-Object System.Net.WebClient).UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Join-Path (Split-Path $PSScriptRoot -Parent) "Tests\TestResults.xml"))
 
     if ($Publish) {
+        Write-Verbose "Publishing VstsRestApiClient to the PSGallery..."
         Import-Module (Join-Path (Split-Path $PSScriptRoot -Parent) "src\VstsRestApiClient.psd1")
         Publish-Module -Name VstsRestApiClient -NuGetApiKey $Env:PSGALLERY_TOKEN
     }
