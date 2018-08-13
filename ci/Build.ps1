@@ -31,10 +31,10 @@ if ($TestResults.FailedCount -gt 0) {
 }
 
 Write-Verbose "Running PSScriptAnalyzer..."
-(Get-ChildItem (Split-Path $PSScriptRoot -Parent) -Recurse -Include '*.psm1', '*.psd1').FullName | ForEach-Object {
+(Get-ChildItem (Split-Path $PSScriptRoot -Parent) -Recurse -Include 'VstsRestApiClient.psm1', 'VstsRestApiClient.psd1').FullName | ForEach-Object {
     $AnalyzeResults = Invoke-ScriptAnalyzer -Path $_
     if ($AnalyzeResults -ne [String]::Empty) {
-        Throw "$(Split-Path $_ -Child) did not pass PSScriptAnalyzer. Failing build..."
+        Throw "$(Split-Path $_ -Leaf) did not pass PSScriptAnalyzer. Failing build..."
     }
 }
 
