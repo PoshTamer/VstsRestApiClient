@@ -1,0 +1,64 @@
+[
+    {
+        "Name": "ArtifactResource",
+        "Description": "Represents an artifact's resources.",
+        "Properties": [
+            {
+                "Name": "_links",
+                "Type": "ReferenceLinks"
+            },
+            {
+                "Name": "data",
+                "Type": "String"
+            },
+            {
+                "Name": "downloadTicket",
+                "Type": "String"
+            },
+            {
+                "Name": "downloadUrl",
+                "Type": "String"
+            },
+            {
+                "Name": "properties",
+                "Type": "Hashtable"
+            },
+            {
+                "Name": "type",
+                "Type": "String"
+            },
+            {
+                "Name": "url",
+                "Type": "String"
+            }
+        ]
+    },
+    {
+        "Name": "BuildArtifact",
+        "Description": "Represents an artifact produced by a build.",
+        "Properties": [
+            {
+                "Name": "id",
+                "Type": "Int32"
+            },
+            {
+                "Name": "name",
+                "Type": "String"
+            },
+            {
+                "Name": "resource",
+                "Type": "ArtifactResource"
+            }
+        ]
+    },
+    {
+        "Name": "ReferenceLinks",
+        "Description": "The class to represent a collection of REST reference links.",
+        "Properties": [
+            {
+                "Name": "links",
+                "Type": "Hashtable"
+            }
+        ]
+    }
+]

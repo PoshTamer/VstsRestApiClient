@@ -1,0 +1,155 @@
+{
+    "Artifacts": [
+        {
+            "Version": 4.1,
+            "Endpoints": [
+                {
+                    "Action": "Create",
+                    "Method": "POST",
+                    "Description": "Associates an artifact with a build.",
+                    "Url": "https://{accountName}.visualstudio.com/{project}/_apis/build/builds/{buildId}/artifacts?api-version={api-version}",
+                    "UrlParameters": [
+                        {
+                            "Name": "accountName",
+                            "Description": "The name of the Visual Studio Team Services account.",
+                            "Required": true,
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "project",
+                            "Description": "Project ID or project name.",
+                            "Required": true,
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "buildId",
+                            "Description": "The ID of the build.",
+                            "Required": true,
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "api-version",
+                            "Description": "Version of the API to use.",
+                            "Required": true,
+                            "Type": "String"
+                        }
+                    ],
+                    "RequestBody": [
+                        {
+                            "Name": "id",
+                            "Description": "The artifact Id.",
+                            "Type": "Int32"
+                        },
+                        {
+                            "Name": "name",
+                            "Description": "The name of the artifact.",
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "resource",
+                            "Description": "The actual resource.",
+                            "Type": "ArtifactResource"
+                        }
+                    ],
+                    "Responses": [
+                        {
+                            "Status": 200,
+                            "Description": "Successful operation.",
+                            "MediaTypes": [ "application/json" ],
+                            "Type": "BuildArtifact"
+                        }
+                    ]
+                },
+                {
+                    "Action": "Get",
+                    "Method": "GET",
+                    "Description": "Gets a specific artifact for a build.",
+                    "Url": "https://{accountName}.visualstudio.com/{project}/_apis/build/builds/{buildId}/artifacts?artifactName={artifactName}&api-version={api-version}",
+                    "UrlParameters": [
+                        {
+                            "Name": "accountName",
+                            "Description": "The name of the Visual Studio Team Services account.",
+                            "Required": true,
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "project",
+                            "Description": "Project ID or project name.",
+                            "Required": true,
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "buildId",
+                            "Description": "The ID of the build.",
+                            "Required": true,
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "artifactName",
+                            "Description": "The name of the artifact.",
+                            "Required": true,
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "api-version",
+                            "Description": "Version of the API to use.",
+                            "Required": true,
+                            "Type": "String"
+                        }
+                    ],
+                    "Responses": [
+                        {
+                            "Status": 200,
+                            "Description": "Successful operation.",
+                            "MediaTypes": [
+                                "application/zip",
+                                "application/json"
+                            ],
+                            "Type": "BuildArtifact"
+                        }
+                    ]
+                },
+                {
+                    "Action": "List",
+                    "Method": "GET",
+                    "Description": "Gets all artifacts for a build.",
+                    "Url": "https://{accountName}.visualstudio.com/{project}/_apis/build/builds/{buildId}/artifacts?api-version={api-version}",
+                    "UrlParameters": [
+                        {
+                            "Name": "accountName",
+                            "Description": "The name of the Visual Studio Team Services account.",
+                            "Required": true,
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "project",
+                            "Description": "Project ID or project name.",
+                            "Required": true,
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "buildId",
+                            "Description": "The ID of the build.",
+                            "Required": true,
+                            "Type": "String"
+                        },
+                        {
+                            "Name": "api-version",
+                            "Description": "Version of the API to use.",
+                            "Required": true,
+                            "Type": "String"
+                        }
+                    ],
+                    "Responses": [
+                        {
+                            "Status": 200,
+                            "Description": "Successful operation.",
+                            "MediaTypes": [ "application/json" ],
+                            "Type": "BuildArtifact[]"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
