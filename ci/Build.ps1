@@ -26,7 +26,7 @@ if ($Ci) {
         $Manifests = (Get-ChildItem -Recurse -Include "*.psd1").FullName
         $Manifests | ForEach-Object {
             $Manifest   = Get-Content $_ -Raw
-            $OldVersion = ([Regex]"\d.\d.\d").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d\.\d\.\d';").Match($Manifest).Value).Value
+            $OldVersion = ([Regex]"\d*.\d*.\d*").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d*\.\d*\.\d*';").Match($Manifest).Value).Value
             
             $NewVersion = [Decimal[]] $OldVersion.Split('.')
             $NewVersion[2] = $BuildId
