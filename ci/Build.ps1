@@ -20,7 +20,7 @@ Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
 
 . (Join-Path (Split-Path $PSScriptRoot -Parent) "Tests\run.ps1")
 
-if (($Ci) -And ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotContains "[SkipCi]")) {
+if (($Ci) -And ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotLike "[SkipCi]*")) {
     if ($TestResults.FailedCount -le 0) {
         $Manifests = (Get-ChildItem -Recurse -Include "*.psd1").FullName
         $Manifests | ForEach-Object {
