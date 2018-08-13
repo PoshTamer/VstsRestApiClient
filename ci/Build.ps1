@@ -20,7 +20,7 @@ Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
 
 . (Join-Path (Split-Path $PSScriptRoot -Parent) "Tests\run.ps1")
 
-if (($Ci) -And ($Env:COMMIT_MESSAGE -NotLike "[SkipCi]*")) {
+if ($Ci) {
 
     if ($TestResults.FailedCount -le 0) {
         $Manifests = (Get-ChildItem -Recurse -Include "*.psd1").FullName
@@ -64,6 +64,6 @@ if (($Ci) -And ($Env:COMMIT_MESSAGE -NotLike "[SkipCi]*")) {
     [void](Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH) -q")
     [void](Invoke-Expression -Command "git add *.psd1")
     [void](Invoke-Expression -Command "git add *.md")
-    [void](Invoke-Expression -Command "git commit -m '[SkipCi]Updating manifests and readme' -q")
+    [void](Invoke-Expression -Command "git commit -m '[skip ci]Updating manifests and readme' -q")
     [void](Invoke-Expression -Command "git push -q")
 }
