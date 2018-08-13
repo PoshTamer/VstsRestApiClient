@@ -15,7 +15,7 @@ PrivateData = @{
 PSData = @{
 Tags = @('Vsts', 'Tfs', 'Client', 'Api')
 LicenseUri = 'https://github.com/PoshTamer/VstsRestApiClient/blob/master/LICENSE'
-ProjectUri = 'https://github.com/PoshTamer/VstsRestApiClient/blob/master'
+ProjectUri = 'https://github.com/PoshTamer/VstsRestApiClient'
 IconUri= 'https://raw.github.com/PoshTamer/VstsRestApiClient/blob/master/imgs/icons/icon.ico'
 CommitHash = '[[COMMIT_HASH]]'
 }
