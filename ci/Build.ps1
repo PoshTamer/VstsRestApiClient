@@ -55,10 +55,11 @@ if ($Ci) {
     $ReadMe = $ReadMe.Replace(([Regex] "!\[Coverage\]\(.*\)").Match($ReadMe).Value, "https://img.shields.io/badge/Coverage-$($NewCoverage)-$($Color).svg")
     $ReadMe | Set-Content "$PSScriptRoot\..\README.md" -Force
 
-    Invoke-Expression -Command "git config --global user.email build@appveyor.com"
-    Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH)"
-    Invoke-Expression -Command "git add *.psd1"
-    Invoke-Expression -Command "git add *.md"
-    Invoke-Expression -Command "git commit -m '[SKIP CI]Updating manifests and readme'"
-    Invoke-Expression -Command "git push"
+    Write-Verbose "Updating ReadMe and Manifests..."
+    [void](Invoke-Expression -Command "git config --global user.email build@appveyor.com")
+    [void](Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH)")
+    [void](Invoke-Expression -Command "git add *.psd1")
+    [void](Invoke-Expression -Command "git add *.md")
+    [void](Invoke-Expression -Command "git commit -m '[SKIP CI]Updating manifests and readme'")
+    [void](Invoke-Expression -Command "git push origin HEAD:$($Env:APPVEYOR_REPO_BRANCH)")
 }
