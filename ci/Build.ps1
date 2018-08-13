@@ -62,6 +62,6 @@ if ($Ci) {
     [void](Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH)")
     [void](Invoke-Expression -Command "git add *.psd1")
     [void](Invoke-Expression -Command "git add *.md")
-    [void](Invoke-Expression -Command "git commit -m '[SKIP CI]Updating manifests and readme'")
+    [void](Invoke-Expression -Command "git commit -m '[SkipCi]Updating manifests and readme'")
     [void](Invoke-Expression -Command "git push")
 }
