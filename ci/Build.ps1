@@ -28,11 +28,9 @@ if (($Ci) -And ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotContains "[SkipCi]")) {
             $OldVersion = ([Regex]"\d.\d.\d").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d\.\d\.\d';").Match($Manifest).Value).Value
             
             $NewVersion = [Decimal[]] $OldVersion.Split('.')
-            $NewVersion[0]++
-            $NewVersion[1]++
             $NewVersion[2] = $BuildId
             
-            $Manifest.Replace($OldVersion, $NewVersion) | Set-Content $_ -Force
+            $Manifest.Replace($OldVersion, $NewVersion.Join('.')) | Set-Content $_ -Force
         }
     }
 
@@ -52,7 +50,7 @@ if (($Ci) -And ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotContains "[SkipCi]")) {
         $Color = "red"
     }
 
-    $ReadMe = $ReadMe.Replace(([Regex] "!\[Coverage\]\(.*\)").Match($ReadMe).Value, "https://img.shields.io/badge/Coverage-$($NewCoverage)-$($Color).svg")
+    $ReadMe = $ReadMe.Replace(([Regex] "!\[Coverage\]\(.*\)").Match($ReadMe).Value, "[CodeCoverage](https://img.shields.io/badge/Coverage-$($NewCoverage)25-$($Color).svg)")
     $ReadMe | Set-Content "$PSScriptRoot\..\README.md" -Force
 
     Write-Verbose "Updating ReadMe and Manifests..."
