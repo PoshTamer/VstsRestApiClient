@@ -2,10 +2,6 @@
 image:
 - Visual Studio 2017
 
-environment:
-  APPVEYOR_REPO_COMMIT_MESSAGE: ${APPVEYOR_REPO_COMMIT_MESSAGE}
-  APPVEYOR_BUILD_ID: ${APPVEYOR_BUILD_ID}
-
 build: off
 
 test_script:

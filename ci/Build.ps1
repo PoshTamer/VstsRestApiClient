@@ -18,7 +18,7 @@ param(
 
 Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
 
-. "$PSScriptRoot\..\Tests\run.ps1"
+. (Join-Path (Split-Path $PSScriptRoot -Parent) "Tests\run.ps1")
 
 if ($Ci) {
     if ($TestResults.FailedCount -le 0) {
@@ -56,10 +56,11 @@ if ($Ci) {
     $ReadMe | Set-Content "$PSScriptRoot\..\README.md" -Force
 
     Write-Verbose "Updating ReadMe and Manifests..."
+    [void](Invoke-Expression -Command "git config core.autocrlf true")
     [void](Invoke-Expression -Command "git config --global user.email build@appveyor.com")
-    [void](Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH)")
+    [void](Invoke-Expression -Command "git pull $($Env:APPVEYOR_REPO_BRANCH)")
     [void](Invoke-Expression -Command "git add *.psd1")
     [void](Invoke-Expression -Command "git add *.md")
     [void](Invoke-Expression -Command "git commit -m '[SKIP CI]Updating manifests and readme'")
-    [void](Invoke-Expression -Command "git push origin HEAD:$($Env:APPVEYOR_REPO_BRANCH)")
+    [void](Invoke-Expression -Command "git push $($Env:APPVEYOR_REPO_BRANCH)")
 }
