@@ -3,8 +3,10 @@ image:
 - Visual Studio 2017
 
 environment:
-  ACCESS_TOKEN:
+  GITHUB_TOKEN:
     secure: cUmYLjdrD7ugnmFpy84fEZE3nMvpgWuvfrqZmABsGZN3+BRcydagkFTlR3KD9nFE
+  PSGALLERY_TOKEN:
+    secure: nK9SOlfQLgC2ghyBVZ0AuxvRSEgYJFAn9YRyCnt3R5lAwLHlU6vEGNu7kNgbhqDL
 
 build: off
 
