@@ -16,21 +16,32 @@ param(
     [Int32]$BuildId
 )
 
-Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
+@( "Pester", "PSScriptAnalyzer" ) | ForEach-Object {
+    Install-Module $_ -Force -Scope CurrentUser -SkipPublisherCheck
+    Import-Module $_ -Force
+}
 
 . (Join-Path (Split-Path $PSScriptRoot -Parent) "Tests\run.ps1")
 
+if ($TestResults.FailedCount -le 0) {
+    Throw "Not all tests passed. Failing build..."
+}
+
+(Get-ChildItem (Join-Path (Split-Path $PSScriptRoot -Parent)) -Recurse -Include '*.psm1', '*.psd1').FullName | ForEach-Object {
+    $AnalyzeResults = Invoke-ScriptAnalyzer -Path $_
+    if ($AnalyzeResults -ne [String]::Empty) {
+        Throw "$(Split-Path $_ -Child) did not pass PSScriptAnalyzer. Failing build..."
+    }
+}
+
 if ($Ci) {
 
-    if ($TestResults.FailedCount -le 0) {
-        $Manifests = (Get-ChildItem -Recurse -Include "*.psd1").FullName
-        $Manifests | ForEach-Object {
-            $Manifest      = Get-Content $_ -Raw
-            $OldVersion    = ([Regex]"\d*\.\d*\.\d*").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d*\.\d*\.\d*';").Match($Manifest).Value).Value
-            $NewVersion    = [Decimal[]] $OldVersion.Split('.')
-            $NewVersion[2] = $BuildId
-            $Manifest.Replace($OldVersion, $NewVersion -Join '.') | Set-Content $_ -Force
-        }
+    (Get-ChildItem -Recurse -Include "*.psd1").FullName | ForEach-Object {
+        $Manifest      = Get-Content $_ -Raw
+        $OldVersion    = ([Regex]"\d*\.\d*\.\d*").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d*\.\d*\.\d*';").Match($Manifest).Value).Value
+        $NewVersion    = [Decimal[]] $OldVersion.Split('.')
+        $NewVersion[2] = $BuildId
+        $Manifest.Replace($OldVersion, $NewVersion -Join '.') | Set-Content $_ -Force
     }
 
     $NewCoverage = "$(($TestResults.CodeCoverage.NumberOfCommandsExecuted/$TestResults.CodeCoverage.NumberOfCommandsAnalyzed * 100).ToString().SubString(0, 5))%"
