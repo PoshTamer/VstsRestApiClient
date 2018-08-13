@@ -20,7 +20,7 @@ Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
 
 . (Join-Path (Split-Path $PSScriptRoot -Parent) "Tests\run.ps1")
 
-if ($Ci) {
+if (($Ci) -And ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotContains "[SkipCi]")) {
     if ($TestResults.FailedCount -le 0) {
         $Manifests = (Get-ChildItem -Recurse -Include "*.psd1").FullName
         $Manifests | ForEach-Object {
@@ -60,6 +60,7 @@ if ($Ci) {
     [void](Invoke-Expression -Command "git config --global credential.helper store")
     [void](Invoke-Expression -Command "git config --global user.email galicea96@outlook.com -q")
     [void](Invoke-Expression -Command "git config --global user.name PoshTamer -q")
+    [void](Invoke-Expression -Command "git config core.autocrlf false -q")
     [void](Invoke-Expression -Command "git checkout $($Env:APPVEYOR_REPO_BRANCH) -q")
     [void](Invoke-Expression -Command "git pull origin $($Env:APPVEYOR_REPO_BRANCH) -q")
     [void](Invoke-Expression -Command "git add *.psd1")

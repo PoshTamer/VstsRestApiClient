@@ -9,4 +9,4 @@ environment:
 build: off
 
 test_script:
-  - ps: .\\ci\\Build.ps1 -Ci:($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotContains "[SkipCi]") -BuildId $Env:APPVEYOR_BUILD_ID
+  - ps: .\\ci\\Build.ps1 -Ci -BuildId $Env:APPVEYOR_BUILD_ID
