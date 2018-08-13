@@ -3,6 +3,7 @@ image:
 - Visual Studio 2017
 
 environment:
+  COMMIT_MESSAGE: ${APPVEYOR_REPO_COMMIT_MESSAGE}
   ACCESS_TOKEN:
     secure: cUmYLjdrD7ugnmFpy84fEZE3nMvpgWuvfrqZmABsGZN3+BRcydagkFTlR3KD9nFE
 

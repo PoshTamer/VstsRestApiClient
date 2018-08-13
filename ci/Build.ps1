@@ -20,7 +20,8 @@ Install-Module Pester -Force -Scope CurrentUser -SkipPublisherCheck
 
 . (Join-Path (Split-Path $PSScriptRoot -Parent) "Tests\run.ps1")
 
-if (($Ci) -And ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotLike "[SkipCi]*")) {
+if (($Ci) -And ($Env:COMMIT_MESSAGE -NotLike "[SkipCi]*")) {
+
     if ($TestResults.FailedCount -le 0) {
         $Manifests = (Get-ChildItem -Recurse -Include "*.psd1").FullName
         $Manifests | ForEach-Object {
@@ -50,7 +51,7 @@ if (($Ci) -And ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -NotLike "[SkipCi]*")) {
         $Color = "red"
     }
 
-    $ReadMe = $ReadMe.Replace(([Regex] "!\[Coverage\]\(.*\)").Match($ReadMe).Value, "[CodeCoverage](https://img.shields.io/badge/Coverage-$($NewCoverage)25-$($Color).svg)")
+    $ReadMe = $ReadMe.Replace(([Regex] "!\[Coverage\]\(.*\)").Match($ReadMe).Value, "![CodeCoverage](https://img.shields.io/badge/Coverage-$($NewCoverage)25-$($Color).svg)")
     $ReadMe | Set-Content "$PSScriptRoot\..\README.md" -Force
 
     Write-Verbose "Updating ReadMe and Manifests..."
