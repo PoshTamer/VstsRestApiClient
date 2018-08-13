@@ -1,5 +1,5 @@
 
 function Test-ModuleInstall
 {
-    Write-Host "Installed."
+    Write-Verbose "Installed."
 }
