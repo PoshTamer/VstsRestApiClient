@@ -9,3 +9,4 @@ $Params = @{
     CodeCoverageOutputFile = "$($PSScriptRoot)\CodeCoverage.xml"
 }
 $TestResults = Invoke-Pester @Params -PassThru
+$Null = $TestResults

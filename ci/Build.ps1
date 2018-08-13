@@ -25,12 +25,10 @@ if ($Ci) {
     if ($TestResults.FailedCount -le 0) {
         $Manifests = (Get-ChildItem -Recurse -Include "*.psd1").FullName
         $Manifests | ForEach-Object {
-            $Manifest   = Get-Content $_ -Raw
-            $OldVersion = ([Regex]"\d*.\d*.\d*").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d*\.\d*\.\d*';").Match($Manifest).Value).Value
-            
-            $NewVersion = [Decimal[]] $OldVersion.Split('.')
+            $Manifest      = Get-Content $_ -Raw
+            $OldVersion    = ([Regex]"\d*\.\d*\.\d*").Match(([Regex] "\s*ModuleVersion\s*=\s*'\d*\.\d*\.\d*';").Match($Manifest).Value).Value
+            $NewVersion    = [Decimal[]] $OldVersion.Split('.')
             $NewVersion[2] = $BuildId
-            
             $Manifest.Replace($OldVersion, $NewVersion -Join '.') | Set-Content $_ -Force
         }
     }
@@ -51,7 +49,7 @@ if ($Ci) {
         $Color = "red"
     }
 
-    $ReadMe = $ReadMe.Replace(([Regex] "!\[Coverage\]\(.*\)").Match($ReadMe).Value, "![CodeCoverage](https://img.shields.io/badge/Coverage-$($NewCoverage)25-$($Color).svg)")
+    $ReadMe = $ReadMe.Replace(([Regex] "!\[Coverage\]\(.*\)").Match($ReadMe).Value, "![Coverage](https://img.shields.io/badge/Coverage-$($NewCoverage)25-$($Color).svg)")
     $ReadMe | Set-Content "$PSScriptRoot\..\README.md" -Force
 
     Write-Verbose "Updating ReadMe and Manifests..."
@@ -66,4 +64,6 @@ if ($Ci) {
     [void](Invoke-Expression -Command "git add *.md")
     [void](Invoke-Expression -Command "git commit -m '[skip ci]Updating manifests and readme' -q")
     [void](Invoke-Expression -Command "git push -q")
+
+    (New-Object System.Net.WebClient).UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Join-Path (Split-Path $PSScriptRoot -Parent) "Tests\TestResults.xml"))
 }
