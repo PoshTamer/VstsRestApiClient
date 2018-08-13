@@ -92,7 +92,6 @@ if ($Ci) {
 
     if ($Publish) {
         Write-Verbose "Publishing VstsRestApiClient to the PSGallery..."
-        Import-Module (Join-Path (Split-Path $PSScriptRoot -Parent) "src\VstsRestApiClient.psd1")
-        Publish-Module -Name VstsRestApiClient -NuGetApiKey $Env:PSGALLERY_TOKEN
+        Publish-Module -Path (Join-Path (Split-Path $PSScriptRoot -Parent) "src") -NuGetApiKey $Env:PSGALLERY_TOKEN
     }
 }
